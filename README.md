@@ -11,7 +11,7 @@ Stock Data Viewer is a web application that allows users to view stock price dat
 
 ## Live Demo
 
-The application is deployed on Vercel and can be accessed [here](<vercel-link>).
+The application is deployed on Vercel and can be accessed [here](<https://stockqueryapplication.vercel.app/>).
 
 ## Installation
 
