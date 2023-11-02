@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from 'react';
 import Chart from './Chart';
 
@@ -37,6 +38,27 @@ export default function InputForm() {
                 console.error('Error fetching data:', error);
             });
     }, [startDate, endDate, ticker]);
+
+    useEffect(() => {
+        fetch('https://interview-api-livid.vercel.app/api/get_summary', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                tickers: [ticker],
+            }),
+        })
+            .then((res) => res.json())
+            .then((data) => {
+                console.log(data); // Log the company summary data to the console
+                // You can then use the data to update the state or perform other actions
+            })
+            .catch((error) => {
+                console.error('Error fetching company summary data:', error);
+            });
+    }, [ticker]);
+
 
     function handleTickerChange(event) {
         setTicker(event.target.value);
@@ -100,51 +122,3 @@ export default function InputForm() {
         </div>
     );
 }
-
-// //
-// Goal: Create a stock querying app.
-
-// More detail: The user will land on a page, and they’ll have some inputs in front of them.Your goal is to query the api for what the user wants to see.You will display a chart(use any charting library you like) and a table summarizing the company information.
-
-// Below are the api routes you have available along with example payloads.Base URL to be provided during the interview.
-
-// End point api / tickers GET
-
-// End point: /api/get_data POST
-// User inputs: startdate, enddate, tickers
-// Example payload:
-
-// {
-//     "startDate": "2023-10-01",
-//         "endDate": "2023-10-11",
-//             "tickers": ["APPL", "GOOG"]
-// }
-
-// Example payload:
-// End point: /api/get_summary POST
-// {
-//     "tickers": ["APPL", "GOOG"]
-// }
-
-// Link https://interview-api-livid.vercel.app by Felix Izraitel
-// Felix Izraitel
-// 3: 17 p.m.
-//     https://interview-api-livid.vercel.app/
-// useEffect(() => { fetch(url).the...by Art Hanson
-// Art Hanson
-// 3: 42 p.m.
-//     useEffect(() => {
-//         fetch(url)
-//             .then((res) => res.json())
-//             .then((data) => console.log(data));
-//     }, []);
-
-
-// use form apiUrl
-// efficeint
-// cleanup
-// leave comments
-// // codepen
-
-// usestate 
-// live url for it
