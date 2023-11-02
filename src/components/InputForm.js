@@ -29,8 +29,6 @@ export default function InputForm() {
 
     // Fetch all data based on form inputs
     useEffect(() => {
-        // Split tickers string into an array and trim whitespace
-        // const tickerArray = tickers.split(',').map(t => t.trim()).filter(t => t !== '');
         const payload = {
             startDate,
             endDate,
@@ -55,8 +53,6 @@ export default function InputForm() {
 
     // Fetch summary data based on tickers input
     useEffect(() => {
-        // Split tickers string into an array and trim whitespace
-        // const tickerArray = tickers.split(',').map(t => t.trim()).filter(t => t !== '');
         fetch('https://interview-api-livid.vercel.app/api/get_summary', {
             method: 'POST',
             headers: {
@@ -97,21 +93,11 @@ export default function InputForm() {
         .map(ticker => ({ value: ticker, label: ticker }));
 
 
-    // const handleDropdownChange = (selectedOptions) => {
-    //     if (selectedOptions) {
-    //         setTickers(selectedOptions.map(option => option.value));
-    //     } else {
-    //         setTickers([]);
-    //     }
-    // };
-
-
     function handleSubmit(event) {
         event.preventDefault();
-        // Split tickers string into an array and trim whitespace
-        // const tickerArray = tickers.split(',').map(t => t.trim()).filter(t => t !== '');
         // Validate tickers and filter data based on date range
         if (tickers.every(t => validTickers.includes(t))) {
+            // Create an array of filtered data for each selected ticker symbol within the specified date range
             const filtered = tickers.map(ticker =>
                 allData.filter(item =>
                     item.symbol === ticker &&
@@ -132,12 +118,6 @@ export default function InputForm() {
             <form onSubmit={handleSubmit}>
                 <label>
                     Stock Ticker:
-                    {/* <input
-                        type="text"
-                        value={tickers}
-                        onChange={handleTickersChange}
-                        placeholder="Enter ticker symbols separated by commas"
-                    /> */}
                     <Select
                         value={selectedTickers}
                         onChange={handleTickersChange}
