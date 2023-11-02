@@ -4,7 +4,6 @@ import * as d3 from 'd3-scale-chromatic';
 
 // Define the Chart functional component that takes props as its argument
 export default function Chart(props) {
-    console.log('Chart data:', props.data);
 
     // Check if the data prop is not provided or is not an array
     if (!props.data || !Array.isArray(props.data)) {

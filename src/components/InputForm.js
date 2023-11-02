@@ -21,53 +21,55 @@ export default function InputForm() {
     const apiUrl = 'https://interview-api-livid.vercel.app/api/tickers';
 
     useEffect(() => {
-        if (tickers.length === 0) {
-            // Fetch valid tickers when component mounts
-            fetch(apiUrl)
-                .then((res) => res.json())
-                .then((data) => setValidTickers(data));
-        } else {
-            const payload = {
-                startDate,
-                endDate,
-                tickers,
-            };
-            // Make API request to fetch data
-            fetch('https://interview-api-livid.vercel.app/api/get_data', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(payload),
-            })
-                .then((res) => res.json())
-                .then((data) => {
-                    setAllData(data);
-                    // Fetch summary data based on tickers input
-                    fetch('https://interview-api-livid.vercel.app/api/get_summary', {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json',
-                        },
-                        body: JSON.stringify({
-                            tickers,
-                        }),
-                    })
-                        .then((res) => res.json())
-                        .then((data) => {
-                            console.log(data);
-                            setSummaryData(data);
-                        })
-                        .catch((error) => {
-                            console.error('Error fetching company summary data:', error);
-                            setSummaryData({ error: 'Failed to fetch company summary data.' });
-                        });
-                })
-                .catch((error) => {
-                    console.error('Error fetching data:', error);
+        // Declare an asynchronous function to handle the API calls
+        const fetchData = async () => {
+            try {
+                // Fetch the valid tickers from the API
+                const validTickersResponse = await fetch(apiUrl);
+                const validTickersData = await validTickersResponse.json();
+                setValidTickers(validTickersData);
+
+                // Prepare the payload for the next API call
+                const payload = {
+                    startDate,
+                    endDate,
+                    tickers,
+                };
+                // Fetch the all data based on the form inputs
+                const allDataResponse = await fetch('https://interview-api-livid.vercel.app/api/get_data', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    // Convert the payload to a JSON string
+                    body: JSON.stringify(payload),
                 });
-        }
+                // Parse the response as JSON
+                const allDataData = await allDataResponse.json();
+                setAllData(allDataData);
+
+                // Fetch the summary data based on the tickers input
+                const summaryDataResponse = await fetch('https://interview-api-livid.vercel.app/api/get_summary', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    // Convert the payload to a JSON string
+                    body: JSON.stringify({
+                        tickers,
+                    }),
+                });
+                const summaryDataData = await summaryDataResponse.json();
+                setSummaryData(summaryDataData);
+            } catch (error) {
+                console.error('Error fetching data:', error);
+            }
+        };
+
+        // Call the fetchData function
+        fetchData();
     }, [apiUrl, startDate, endDate, tickers]);
+
 
 
     function handleTickersChange(selectedOptions) {
