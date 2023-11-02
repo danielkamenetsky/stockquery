@@ -20,58 +20,55 @@ export default function InputForm() {
 
     const apiUrl = 'https://interview-api-livid.vercel.app/api/tickers';
 
-    // Fetch valid tickers when component mounts
     useEffect(() => {
-        fetch(apiUrl)
-            .then((res) => res.json())
-            .then((data) => setValidTickers(data));
-    }, [apiUrl]);
-
-    // Fetch all data based on form inputs
-    useEffect(() => {
-        const payload = {
-            startDate,
-            endDate,
-            tickers,
-        };
-        // Make API request to fetch data
-        fetch('https://interview-api-livid.vercel.app/api/get_data', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(payload),
-        })
-            .then((res) => res.json())
-            .then((data) => {
-                setAllData(data);
-            })
-            .catch((error) => {
-                console.error('Error fetching data:', error);
-            });
-    }, [startDate, endDate, tickers]);
-
-    // Fetch summary data based on tickers input
-    useEffect(() => {
-        fetch('https://interview-api-livid.vercel.app/api/get_summary', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
+        if (tickers.length === 0) {
+            // Fetch valid tickers when component mounts
+            fetch(apiUrl)
+                .then((res) => res.json())
+                .then((data) => setValidTickers(data));
+        } else {
+            const payload = {
+                startDate,
+                endDate,
                 tickers,
-            }),
-        })
-            .then((res) => res.json())
-            .then((data) => {
-                console.log(data);
-                setSummaryData(data);
+            };
+            // Make API request to fetch data
+            fetch('https://interview-api-livid.vercel.app/api/get_data', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(payload),
             })
-            .catch((error) => {
-                console.error('Error fetching company summary data:', error);
-                setSummaryData({ error: 'Failed to fetch company summary data.' });
-            });
-    }, [tickers]);
+                .then((res) => res.json())
+                .then((data) => {
+                    setAllData(data);
+                    // Fetch summary data based on tickers input
+                    fetch('https://interview-api-livid.vercel.app/api/get_summary', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify({
+                            tickers,
+                        }),
+                    })
+                        .then((res) => res.json())
+                        .then((data) => {
+                            console.log(data);
+                            setSummaryData(data);
+                        })
+                        .catch((error) => {
+                            console.error('Error fetching company summary data:', error);
+                            setSummaryData({ error: 'Failed to fetch company summary data.' });
+                        });
+                })
+                .catch((error) => {
+                    console.error('Error fetching data:', error);
+                });
+        }
+    }, [apiUrl, startDate, endDate, tickers]);
+
 
     function handleTickersChange(selectedOptions) {
         const selectedValues = selectedOptions.map(option => option.value);
