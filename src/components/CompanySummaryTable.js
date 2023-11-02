@@ -28,7 +28,6 @@ export default function CompanySummaryTable({ data }) {
                             <tr>
                                 <th>Symbol</th>
                                 <th>Market Cap</th>
-                                <th>Revenue</th>
                                 <th>EPS</th>
                                 <th>PE Ratio</th>
                                 <th>Volume</th>
@@ -39,7 +38,6 @@ export default function CompanySummaryTable({ data }) {
                             <tr>
                                 <td>{company.symbol}</td>
                                 <td>{formatMarketCap(company.marketCap)}</td>
-                                <td>{company.revenue}</td>
                                 <td>{company.eps}</td>
                                 <td>{company.peRatio}</td>
                                 <td>{formatVolume(company.volume)}</td>

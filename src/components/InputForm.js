@@ -1,8 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import Chart from './Chart';
 import CompanySummaryTable from './CompanySummaryTable';
+import '../styles/TableStyles.css';
 
+// Define the InputForm functional component
 export default function InputForm() {
+    // Define state variables for form inputs and fetched data
     const [tickers, setTickers] = useState('');
     const [startDate, setStartDate] = useState('');
     const [endDate, setEndDate] = useState('');
@@ -14,19 +17,23 @@ export default function InputForm() {
 
     const apiUrl = 'https://interview-api-livid.vercel.app/api/tickers';
 
+    // Fetch valid tickers when component mounts
     useEffect(() => {
         fetch(apiUrl)
             .then((res) => res.json())
             .then((data) => setValidTickers(data));
     }, [apiUrl]);
 
+    // Fetch all data based on form inputs
     useEffect(() => {
+        // Split tickers string into an array and trim whitespace
         const tickerArray = tickers.split(',').map(t => t.trim()).filter(t => t !== '');
         const payload = {
             startDate,
             endDate,
             tickers: tickerArray,
         };
+        // Make API request to fetch data
         fetch('https://interview-api-livid.vercel.app/api/get_data', {
             method: 'POST',
             headers: {
@@ -43,7 +50,9 @@ export default function InputForm() {
             });
     }, [startDate, endDate, tickers]);
 
+    // Fetch summary data based on tickers input
     useEffect(() => {
+        // Split tickers string into an array and trim whitespace
         const tickerArray = tickers.split(',').map(t => t.trim()).filter(t => t !== '');
         fetch('https://interview-api-livid.vercel.app/api/get_summary', {
             method: 'POST',
@@ -56,7 +65,7 @@ export default function InputForm() {
         })
             .then((res) => res.json())
             .then((data) => {
-                console.log(data); // Log the company summary data to the console
+                console.log(data);
                 setSummaryData(data);
             })
             .catch((error) => {
@@ -79,7 +88,9 @@ export default function InputForm() {
 
     function handleSubmit(event) {
         event.preventDefault();
+        // Split tickers string into an array and trim whitespace
         const tickerArray = tickers.split(',').map(t => t.trim()).filter(t => t !== '');
+        // Validate tickers and filter data based on date range
         if (tickerArray.every(t => validTickers.includes(t))) {
             const filtered = tickerArray.map(ticker =>
                 allData.filter(item =>
@@ -95,6 +106,7 @@ export default function InputForm() {
         }
     }
 
+    // Render the form and fetched data
     return (
         <div className="App">
             <form onSubmit={handleSubmit}>
@@ -125,7 +137,9 @@ export default function InputForm() {
                 </label>
                 <input type="submit" value="Submit" />
             </form>
+            {/* Chart component to display stock price data */}
             <Chart data={filteredData} tickers={tickers.split(',').map(t => t.trim()).filter(t => t !== '')} />
+            {/* CompanySummaryTable component to display company summary data */}
             <CompanySummaryTable data={summaryData} />
             {error && <div style={{ color: 'red' }}>{error}</div>}
         </div>
