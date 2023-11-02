@@ -1,70 +1,51 @@
-# Getting Started with Create React App
+# Stock Data Viewer
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Stock Data Viewer is a web application that allows users to view stock price data and company information for selected ticker symbols.
 
-## Available Scripts
+## Features
 
-In the project directory, you can run:
+- Search and select multiple stock ticker symbols.
+- View stock price data in a line chart.
+- View company information, such as market cap, EPS, PE ratio, and next earnings date.
+- Filter stock price data based on a date range.
 
-### `npm start`
+## Live Demo
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+The application is deployed on Vercel and can be accessed [here](<vercel-link>).
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+## Installation
 
-### `npm test`
+1. Clone the repository
+   ```bash
+   git clone <repository-link>
+   ``` bash
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+2. Navigate to the project directory
 
-### `npm run build`
+   ```bash
+    cd <project-directory>
+   ``` bash
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+3. Install the dependencies
+   ```bash
+   npm install
+   ``` bash
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+4. Run the application
+   ```bash
+    npm start
+   ``` bash
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
 
-### `npm run eject`
+## Usage
+1. Enter the stock ticker symbols in the search box and select from the dropdown.
+2. Select the start date and end date for filtering the stock price data.
+3. Click the "Submit" button to view the stock price chart and company information for the selected ticker symbols.
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+## Technologies Used
+- Technologies Used
+ -React.js
+- Plotly.js
+- D3.js
+- react-select
+- Vercel (for deployment)
