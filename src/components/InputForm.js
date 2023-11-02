@@ -1,6 +1,7 @@
 
 import React, { useState, useEffect } from 'react';
 import Chart from './Chart';
+import CompanySummaryTable from './CompanySummaryTable';
 
 export default function InputForm() {
     const [ticker, setTicker] = useState('');
@@ -10,6 +11,8 @@ export default function InputForm() {
     const [error, setError] = useState('');
     const [filteredData, setFilteredData] = useState([]);
     const [allData, setAllData] = useState([]);
+    const [summaryData, setSummaryData] = useState([]);
+
 
     const apiUrl = `https://interview-api-livid.vercel.app/api/tickers`;
 
@@ -52,12 +55,16 @@ export default function InputForm() {
             .then((res) => res.json())
             .then((data) => {
                 console.log(data); // Log the company summary data to the console
-                // You can then use the data to update the state or perform other actions
+                // Update the summaryData state with the fetched data
+                setSummaryData(data);
             })
             .catch((error) => {
                 console.error('Error fetching company summary data:', error);
+                // Update the summaryData state with an error message
+                setSummaryData({ error: 'Failed to fetch company summary data.' });
             });
     }, [ticker]);
+
 
 
     function handleTickerChange(event) {
@@ -118,6 +125,7 @@ export default function InputForm() {
             </form>
             {/* Render the Chart component with filteredData */}
             <Chart data={filteredData} />
+            <CompanySummaryTable data={summaryData} />
             {error && <div style={{ color: 'red' }}>{error}</div>}
         </div>
     );
