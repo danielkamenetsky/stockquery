@@ -18,23 +18,23 @@ The application is deployed on Vercel and can be accessed [here](<https://stockq
 1. Clone the repository
    ```bash
    git clone <repository-link>
-   ``` bash
+
 
 2. Navigate to the project directory
 
    ```bash
     cd <project-directory>
-   ``` bash
+
 
 3. Install the dependencies
    ```bash
    npm install
-   ``` bash
+
 
 4. Run the application
    ```bash
     npm start
-   ``` bash
+
 
 
 ## Usage
