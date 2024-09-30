@@ -4,72 +4,79 @@ import CompanySummaryTable from './CompanySummaryTable';
 import '../styles/TableStyles.css';
 import Select from 'react-select';
 
-
-// Define the InputForm functional component
 export default function InputForm() {
-    // Define state variables for form inputs and fetched data
     const [tickers, setTickers] = useState([]);
     const [startDate, setStartDate] = useState('');
     const [endDate, setEndDate] = useState('');
     const [validTickers, setValidTickers] = useState([]);
     const [error, setError] = useState('');
     const [filteredData, setFilteredData] = useState([]);
-    const [allData, setAllData] = useState([]);
     const [summaryData, setSummaryData] = useState([]);
     const [selectedTickers, setSelectedTickers] = useState([]);
 
-    const apiUrl = 'http://localhost:5001/api/tickers';
+    const apiUrl = 'http://localhost:5001';
 
     useEffect(() => {
-        // Declare an asynchronous function to handle the API calls
-        const fetchData = async () => {
+        const fetchValidTickers = async () => {
             try {
-                // Fetch the valid tickers from the API
-                const validTickersResponse = await fetch(apiUrl);
-                const validTickersData = await validTickersResponse.json();
-                setValidTickers(validTickersData);
-
-                // Prepare the payload for the next API call
-                const payload = {
-                    startDate,
-                    endDate,
-                    tickers,
-                };
-                // Fetch the all data based on the form inputs
-                const allDataResponse = await fetch('http://localhost:5001/api/get_data', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    // Convert the payload to a JSON string
-                    body: JSON.stringify(payload),
-                });
-                // Parse the response as JSON
-                const allDataData = await allDataResponse.json();
-                setAllData(allDataData);
-
-                // Fetch the summary data based on the tickers input
-                const summaryDataResponse = await fetch('http://localhost:5001/api/get_summary', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    // Convert the payload to a JSON string
-                    body: JSON.stringify({
-                        tickers,
-                    }),
-                });
-                const summaryDataData = await summaryDataResponse.json();
-                setSummaryData(summaryDataData);
+                const response = await fetch(`${apiUrl}/api/get_tickers`);
+                const data = await response.json();
+                setValidTickers(data);
             } catch (error) {
-                console.error('Error fetching data:', error);
+                console.error('Error fetching valid tickers:', error);
             }
         };
 
-        // Call the fetchData function
-        fetchData();
-    }, [apiUrl, startDate, endDate, tickers]);
+        fetchValidTickers();
+    }, []);
 
+    const fetchData = async () => {
+        if (tickers.length === 0 || !startDate || !endDate) return;
+    
+        try {
+            // Fetch stock data for each ticker
+            const stockDataPromises = tickers.map(ticker =>
+                fetch(`${apiUrl}/api/get_data?ticker=${ticker}&startDate=${startDate}&endDate=${endDate}`)
+                    .then(response => response.json())
+            );
+    
+            const stockDataResults = await Promise.all(stockDataPromises);
+            
+            // Format the data for the Chart component
+            const formattedChartData = stockDataResults.map(result => {
+                return result.stockData.map(item => ({
+                    date: new Date(item.Date),
+                    price: parseFloat(item.Price)
+                }));
+            });
+    
+            setFilteredData(formattedChartData);
+    
+            // Fetch summary data
+            const summaryResponse = await fetch(`${apiUrl}/api/get_summary?tickers=${tickers.join(',')}`);
+            const summaryData = await summaryResponse.json();
+    
+            // Log the raw summary data for debugging
+            console.log("input form", summaryData);
+            const mcapValue = summaryData[0].MarketCap;
+            console.log(mcapValue)
+    
+            // Format summary data to match the expected structure
+            const formattedSummaryData = summaryData.map(company => ({
+                symbol: company.Symbol,
+                marketCap: company.MarketCap, // Use a parsing function
+                eps: company.EPS,
+                peRatio: company.PERatio ?? 'N/A', // Set default if missing
+                volume: company.Volume, // Use a parsing function
+                nextEarningsDate: company.NextEarningsDate // Use a formatting function
+            }));
+    
+            setSummaryData(formattedSummaryData);
+        } catch (error) {
+            console.error('Error fetching data:', error);
+            setError('Failed to fetch data. Please try again.');
+        }
+    };
 
 
     function handleTickersChange(selectedOptions) {
@@ -86,32 +93,19 @@ export default function InputForm() {
         setEndDate(event.target.value);
     }
 
-    // Convert validTickers to the format required by react-select
     const tickerOptions = validTickers
-        .filter(ticker => !tickers.includes(ticker)) // Exclude selected tickers
         .map(ticker => ({ value: ticker, label: ticker }));
-
 
     function handleSubmit(event) {
         event.preventDefault();
-        // Validate tickers and filter data based on date range
         if (tickers.every(t => validTickers.includes(t))) {
-            // Create an array of filtered data for each selected ticker symbol within the specified date range
-            const filtered = tickers.map(ticker =>
-                allData.filter(item =>
-                    item.symbol === ticker &&
-                    new Date(item.date) >= new Date(startDate) &&
-                    new Date(item.date) <= new Date(endDate)
-                )
-            );
-            setFilteredData(filtered);
+            fetchData();
             setError('');
         } else {
-            setError('Invalid ticker symbol. Please enter valid symbols separated by commas.');
+            setError('Invalid ticker symbol. Please enter valid symbols.');
         }
     }
 
-    // Render the form and fetched data
     return (
         <div className="App">
             <form onSubmit={handleSubmit}>
@@ -145,9 +139,7 @@ export default function InputForm() {
                 </label>
                 <input type="submit" value="Submit" />
             </form>
-            {/* Chart component to display stock price data */}
             <Chart data={filteredData} tickers={tickers} />
-            {/* CompanySummaryTable component to display company summary data */}
             <CompanySummaryTable data={summaryData} />
             {error && <div style={{ color: 'red' }}>{error}</div>}
         </div>

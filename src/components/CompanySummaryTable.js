@@ -1,22 +1,11 @@
 import React from 'react';
 import '../styles/TableStyles.css';
+import { formatMarketCap, formatVolume, formatDate } from '../components/utils/helpers';
 
 export default function CompanySummaryTable({ data }) {
     if (!Array.isArray(data)) {
         return <div style={{ color: 'red' }}>{data.error}</div>;
     }
-
-    const formatMarketCap = (value) => {
-        return `$${Number(value).toLocaleString()}`;
-    };
-
-    const formatVolume = (value) => {
-        return `$${Math.round(Number(value)).toLocaleString()}`;
-    };
-
-    const formatDate = (value) => {
-        return new Date(value).toLocaleDateString();
-    };
 
     return (
         <div>
@@ -50,3 +39,6 @@ export default function CompanySummaryTable({ data }) {
         </div>
     );
 }
+
+
+
