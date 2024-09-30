@@ -18,7 +18,7 @@ export default function InputForm() {
     const [summaryData, setSummaryData] = useState([]);
     const [selectedTickers, setSelectedTickers] = useState([]);
 
-    const apiUrl = 'https://interview-api-livid.vercel.app/api/tickers';
+    const apiUrl = 'http://localhost:5001/api/tickers';
 
     useEffect(() => {
         // Declare an asynchronous function to handle the API calls
@@ -36,7 +36,7 @@ export default function InputForm() {
                     tickers,
                 };
                 // Fetch the all data based on the form inputs
-                const allDataResponse = await fetch('https://interview-api-livid.vercel.app/api/get_data', {
+                const allDataResponse = await fetch('http://localhost:5001/api/get_data', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
@@ -49,7 +49,7 @@ export default function InputForm() {
                 setAllData(allDataData);
 
                 // Fetch the summary data based on the tickers input
-                const summaryDataResponse = await fetch('https://interview-api-livid.vercel.app/api/get_summary', {
+                const summaryDataResponse = await fetch('http://localhost:5001/api/get_summary', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
