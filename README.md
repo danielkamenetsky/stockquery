@@ -39,17 +39,15 @@ The application is deployed on Vercel and can be accessed [here](<https://stockq
     cd test-api
 
 
-
 4. Install the dependencies
    ```bash
     npm install
 
 
 5. Run the API
-5. Run the API
    ```bash
     node server.js
-    node server.js
+   
 
 6. Access the [stockquery application](<https://stockqueryapplication.vercel.app/>)
    ```bash
