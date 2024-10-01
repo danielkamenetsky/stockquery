@@ -17,7 +17,7 @@ The application is deployed on Vercel and can be accessed [here](<https://stockq
 
 1. Clone the repository
    ```bash
-   git clone <repository-link>
+    git clone <repository-link>
 
 
 2. Navigate to the project directory
@@ -34,16 +34,16 @@ The application is deployed on Vercel and can be accessed [here](<https://stockq
 
 4. Install the dependencies
    ```bash
-   npm install
+    npm install
 
 
 5. Run the API
    ```bash
     node server.js
 
-6.. Access the [stockquery application](<https://stockqueryapplication.vercel.app/>)
+6. Access the [stockquery application](<https://stockqueryapplication.vercel.app/>)
    ```bash
-    select the tickers you'd like to compare. Data is available from Sept 1st 2024 to Oct 31, 2024. 
+     select the tickers you'd like to compare. Data is available from Sept 1st 2024 to Oct 31, 2024. 
 
 
 ## Usage
