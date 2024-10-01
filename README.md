@@ -17,7 +17,7 @@ The application is deployed on Vercel and can be accessed [here](<https://stockq
 
 1. Clone the repository
    ```bash
-    git clone <repository-link>
+    git clone https://github.com/danielkamenetsky/stockquery.git
 
 
 2. Navigate to the project directory
