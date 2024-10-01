@@ -25,16 +25,25 @@ The application is deployed on Vercel and can be accessed [here](<https://stockq
    ```bash
     cd <project-directory>
 
+3. Navigate to the API folder:
 
-3. Install the dependencies
+   ```bash
+    cd test-api
+
+
+
+4. Install the dependencies
    ```bash
    npm install
 
 
-4. Run the application
+5. Run the API
    ```bash
-    npm start
+    node server.js
 
+6.. Access the stock query application
+   ```bash
+   Head to (<https://stockqueryapplication.vercel.app/>) and select the tickers you'd like to compare. Data is available from Sept 1st 2024 to Oct 31, 2024. 
 
 
 ## Usage
