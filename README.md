@@ -31,14 +31,6 @@ The application is deployed on Vercel and can be accessed [here](<https://stockq
     cd test-api
 
 
-
-4. Install the dependencies
-3. Navigate to the API folder:
-
-   ```bash
-    cd test-api
-
-
 4. Install the dependencies
    ```bash
     npm install
