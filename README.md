@@ -41,9 +41,9 @@ The application is deployed on Vercel and can be accessed [here](<https://stockq
    ```bash
     node server.js
 
-6.. Access the stock query application
+6.. Access the [stockquery application](<https://stockqueryapplication.vercel.app/>)
    ```bash
-   Head to the [application](<https://stockqueryapplication.vercel.app/>) and select the tickers you'd like to compare. Data is available from Sept 1st 2024 to Oct 31, 2024. 
+    select the tickers you'd like to compare. Data is available from Sept 1st 2024 to Oct 31, 2024. 
 
 
 ## Usage
