@@ -43,7 +43,7 @@ The application is deployed on Vercel and can be accessed [here](<https://stockq
 
 6. Access the [stockquery application](<https://stockqueryapplication.vercel.app/>)
    ```bash
-     select the tickers you'd like to compare. Data is available from Sept 1st 2024 to Oct 31, 2024. 
+      choose the tickers you'd like to compare. Data is available from Sept 1st 2024 to Oct 31, 2024. 
 
 
 ## Usage
