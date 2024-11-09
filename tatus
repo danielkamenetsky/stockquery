@@ -1,0 +1,30 @@
+[33mf827fdb[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmain[m[33m, [m[1;31morigin/main[m[33m, [m[1;31morigin/alpha-vantage-integration[m[33m, [m[1;31morigin/HEAD[m[33m, [m[1;32malpha-vantage-integration[m[33m)[m feat: integrate Alpha Vantage API with mock data fallback
+[33m800cfe8[m Update README.md
+[33m61a7ac2[m Update README.md
+[33m1930cf4[m Added button to include set up instructions, updated csv data.
+[33m0250c6f[m Update README.md
+[33m64f8a9d[m Update README.md
+[33m25690fc[m Update README.md
+[33me11e3e9[m Update README.md
+[33m888c876[m Update README.md
+[33m4d0ab52[m Update README.md
+[33m05abc7e[m Update README.md
+[33m8934d57[m Update README.md
+[33m329ee09[m Fixed bug resulted in improper formatting of summary table
+[33m40e5cd0[m[33m ([m[1;31morigin/fix-api[m[33m)[m Fix issue with summary data
+[33mcece180[m Set up dummy API for stock data, implemented routes for fetching tickers and summary data, and integrated the frontend with API to fetch stock details.
+[33m4b0957c[m Update README.md
+[33ma941b3f[m Update README.md to include Vercel delpoyment link
+[33m5cc3e8e[m Update README.md
+[33m3ee3dfd[m Refactor: Update API data fetching to use async/await, add high-level comments, and improve readability
+[33m65ac189[m Refactor: Combine multiple useEffect blocks into a single block
+[33m2db366d[m feat: Enhance Chart component to display multiple ticker overlays
+[33m714dc77[m feat: Add dropdown for stock tickers
+[33m2c079bc[m Remove unnecessary files to clean up project structure
+[33m281371b[m Add inline comments to explain code in component files
+[33m873505b[m Add styles to table and complete functionality for single ticker
+[33m71f3153[m Added table component and linked with InputForm component to display company summary
+[33m31c6890[m Working state before adding company summary table
+[33m120afd2[m Clean up and fill out code and add chart implementation.
+[33m41f63cf[m first commit
+[33mfaa7cb4[m Initialize project using Create React App

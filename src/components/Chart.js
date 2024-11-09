@@ -2,20 +2,23 @@ import React from 'react';
 import Plot from 'react-plotly.js';
 import * as d3 from 'd3-scale-chromatic';
 
-// Define the Chart functional component that takes props as its argument
 export default function Chart(props) {
-
-    // Check if the data prop is not provided or is not an array
     if (!props.data || !Array.isArray(props.data)) {
         return <div>No data available</div>;
     }
 
-    // Map over the data prop to create a trace for each set of data
+    // Create normalized traces based on percentage change from first day
     const traces = props.data.map((chartData, index) => {
-        // Extract the x and y values from the chartData array
-        const xValues = chartData.map(d => d.date);
-        const yValues = chartData.map(d => d.price);
+        // Get the base price (first day's price)
+        const basePrice = chartData[0]?.price;
 
+        // Calculate percentage change for each day
+        const xValues = chartData.map(d => new Date(d.date));
+        const yValues = chartData.map(d => {
+            const pctChange = ((d.price - basePrice) / basePrice) * 100;
+            console.log(`${d.date}: ${d.price} -> ${pctChange}%`);
+            return pctChange;
+        });
         return {
             type: 'scatter',
             mode: 'lines',
@@ -27,17 +30,30 @@ export default function Chart(props) {
     });
 
     const layout = {
-        title: 'Stock Price Data',
+        title: 'Stock Price Performance Comparison',
         xaxis: {
             title: 'Date',
             type: 'date'
         },
         yaxis: {
-            title: 'Price'
+            title: 'Percentage Change (%)',
+            zeroline: true,
+            zerolinecolor: '#969696',
+            zerolinewidth: 1,
+            gridcolor: '#e6e6e6',
+            // ADDED: These lines will force it to show a good range of positive and negative
+            autorange: false,  // Don't auto-range
+            range: [-100, 100],  // Show from -10% to +10% by default
+        },
+        hovermode: 'x unified',
+        hoverlabel: { namelength: -1 },
+        showlegend: true,
+        legend: {
+            x: 1,
+            xanchor: 'right',
+            y: 1
         }
     };
-
-    // Return the Plot component with the specified data, layout, and styles
     return (
         <Plot
             data={traces}
