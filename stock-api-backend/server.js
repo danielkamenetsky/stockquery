@@ -7,7 +7,10 @@ console.log('API Key loaded:', process.env.ALPHA_VANTAGE_API_KEY ? 'Yes' : 'No')
 const MOCK_DATA = require('./mockData');
 
 const app = express();
-const PORT = 5001;
+const port = process.env.PORT || 5001;
+app.listen(port, () => {
+    console.log(`Server is running on port ${port}`);
+});
 
 app.use(cors());
 app.use(express.json());
@@ -229,7 +232,4 @@ app.get('/api/get_all_tickers', async (req, res) => {
         console.error('Error fetching tickers:', error);
         res.status(500).json({ error: 'Failed to fetch available tickers' });
     }
-});
-app.listen(PORT, () => {
-    console.log(`Server is running on http://localhost:${PORT}`);
 });
