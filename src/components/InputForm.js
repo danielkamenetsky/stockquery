@@ -36,7 +36,7 @@ export default function InputForm() {
     const [selectedTickers, setSelectedTickers] = useState([]); // Store selected options for the dropdown
 
     // URL where our backend server is running
-    const apiUrl = 'http://localhost:5001';
+    const apiUrl = 'https://stock-query-app-2270b4926af7.herokuapp.com/';
     const [setAvailableDateRange] = useState({ oldest: null, newest: null });
 
 
