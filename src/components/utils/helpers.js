@@ -16,6 +16,13 @@ export const formatMarketCap = (marketCap) => {
 // Rest of your helper functions remain the same
 export const formatVolume = (volume) => {
   if (!volume || isNaN(volume)) return 'N/A';
+  if (volume >= 1e12) {  // Trillion
+    return `${(volume / 1e12).toLocaleString(undefined, { maximumFractionDigits: 2 })}T`;
+} else if (volume >= 1e9) {  // Billion
+    return `${(volume / 1e9).toLocaleString(undefined, { maximumFractionDigits: 2 })}B`;
+} else if (volume >= 1e6) {  // Million
+    return `${(volume / 1e6).toLocaleString(undefined, { maximumFractionDigits: 2 })}M`;
+}
   return volume.toLocaleString();
 };
 

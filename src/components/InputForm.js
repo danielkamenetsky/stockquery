@@ -2,7 +2,7 @@
 import React, { useState } from 'react';
 import Chart from './Chart';
 import CompanySummaryTable from './CompanySummaryTable';
-import '../styles/TableStyles.css';
+import './ModernContainer.css';
 import Select from 'react-select';
 
 

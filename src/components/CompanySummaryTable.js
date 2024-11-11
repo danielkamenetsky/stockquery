@@ -1,6 +1,6 @@
 import React from 'react';
-import '../styles/TableStyles.css';
-import { formatMarketCap, formatVolume, formatDate } from '../components/utils/helpers';
+import '../components/ModernContainer.css';
+import { formatMarketCap, formatVolume, formatDate, formatNumber } from '../components/utils/helpers';
 
 export default function CompanySummaryTable({ data }) {
     if (!Array.isArray(data)) {
@@ -8,7 +8,7 @@ export default function CompanySummaryTable({ data }) {
     }
 
     return (
-        <div>
+        <div className="company-info-container">
             {data.map((company, index) => (
                 <div key={index}>
                     <h2>Company Information for {company.symbol}</h2>
@@ -25,12 +25,12 @@ export default function CompanySummaryTable({ data }) {
                         </thead>
                         <tbody>
                             <tr>
-                                <td>{company.symbol}</td>
-                                <td>{formatMarketCap(company.marketCap)}</td>
-                                <td>{company.eps}</td>
-                                <td>{company.peRatio}</td>
-                                <td>{formatVolume(company.volume)}</td>
-                                <td>{formatDate(company.nextEarningsDate)}</td>
+                            <td data-label="Symbol"><span>{company.symbol}</span></td>
+                            <td data-label="Market Cap"><span>{formatMarketCap(company.marketCap)}</span></td>
+                            <td data-label="EPS"><span>{formatNumber(company.eps)}</span></td>
+                            <td data-label="PE Ratio"><span>{formatNumber(company.peRatio)}</span></td>
+                            <td data-label="Volume"><span>{formatVolume(company.volume)}</span></td>
+                            <td data-label="Next Earnings"><span>{formatDate(company.nextEarningsDate)}</span></td>
                             </tr>
                         </tbody>
                     </table>
@@ -39,6 +39,3 @@ export default function CompanySummaryTable({ data }) {
         </div>
     );
 }
-
-
-
