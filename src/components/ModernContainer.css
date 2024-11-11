@@ -1,0 +1,120 @@
+/* ModernContainer.css */
+:root {
+  --tv-bg-color: #131722;
+  --tv-grid-color: #1f2937;
+  --tv-text-color: #d1d4dc;
+  --tv-accent-color: #2962ff;
+  --tv-border-color: #2a2e39;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  background-color: var(--tv-bg-color);
+}
+
+.trading-view-container {
+  min-height: 100vh;
+  background-color: var(--tv-bg-color);
+  color: var(--tv-text-color);
+}
+
+/* Header styling */
+.top-bar {
+  background-color: var(--tv-grid-color);
+  padding: 10px 20px;
+  border-bottom: 1px solid var(--tv-border-color);
+}
+
+/* Chart area styling */
+.chart-area {
+  background-color: var(--tv-bg-color);
+  border: 1px solid var(--tv-border-color);
+  border-radius: 4px;
+  margin: 20px;
+  padding: 20px;
+}
+
+/* Input form styling */
+form {
+  background-color: var(--tv-grid-color);
+  padding: 20px;
+  border-radius: 4px;
+  margin-bottom: 20px;
+}
+
+/* React-select custom styling */
+.css-13cymwt-control {
+  background-color: var(--tv-grid-color) !important;
+  border-color: var(--tv-border-color) !important;
+  color: var(--tv-text-color) !important;
+}
+
+.css-1nmdiq5-menu {
+  background-color: var(--tv-grid-color) !important;
+  border: 1px solid var(--tv-border-color) !important;
+}
+
+.css-tr4s17-option {
+  background-color: var(--tv-grid-color) !important;
+  color: var(--tv-text-color) !important;
+}
+
+.css-tr4s17-option:hover {
+  background-color: var(--tv-accent-color) !important;
+}
+
+/* Date inputs styling */
+input[type="date"] {
+  background-color: var(--tv-grid-color);
+  border: 1px solid var(--tv-border-color);
+  color: var(--tv-text-color);
+  padding: 8px;
+  border-radius: 4px;
+}
+
+/* Submit button styling */
+input[type="submit"] {
+  background-color: var(--tv-accent-color);
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+input[type="submit"]:hover {
+  background-color: #1e4dd8;
+}
+
+/* Table styling */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  background-color: var(--tv-grid-color);
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+th,
+td {
+  padding: 12px;
+  border: 1px solid var(--tv-border-color);
+  color: var(--tv-text-color);
+}
+
+th {
+  background-color: var(--tv-bg-color);
+  font-weight: 500;
+}
+
+/* Only change the calendar icon color without affecting the input background */
+input[type="date"]::-webkit-calendar-picker-indicator {
+  filter: invert(1); /* Makes the calendar icon black */
+  cursor: pointer;
+}
+
+/* Keep text color white but don't change background */
+input[type="date"] {
+  color: white; /* Keep text white */
+}

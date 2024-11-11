@@ -1,5 +1,5 @@
 // Import necessary React stuff and other components we need
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import Chart from './Chart';
 import CompanySummaryTable from './CompanySummaryTable';
 import '../styles/TableStyles.css';
@@ -34,11 +34,10 @@ export default function InputForm() {
     const [filteredData, setFilteredData] = useState([]); // Store data for the chart
     const [summaryData, setSummaryData] = useState([]); // Store company info data
     const [selectedTickers, setSelectedTickers] = useState([]); // Store selected options for the dropdown
-    const [availableTickers, setAvailableTickers] = useState([]);
 
     // URL where our backend server is running
     const apiUrl = 'http://localhost:5001';
-    const [availableDateRange, setAvailableDateRange] = useState({ oldest: null, newest: null });
+    const [setAvailableDateRange] = useState({ oldest: null, newest: null });
 
 
     // Function that fetches data when form is submitted
@@ -137,10 +136,36 @@ export default function InputForm() {
                         value={selectedTickers}
                         onChange={handleTickersChange}
                         options={POPULAR_TICKERS}
-                        isClearable={true} // Allow clearing selections
+                        isClearable={true}
                         placeholder="Enter stock tickers (e.g., AAPL, MSFT)"
-                        isSearchable={true} // Allow typing to search
-                        isMulti={true} // Allow multiple selections
+                        isSearchable={true}
+                        isMulti={true}
+                        styles={{
+                            control: (baseStyles) => ({
+                                ...baseStyles,
+                                backgroundColor: 'rgba(255, 255, 255, 0.9)',
+                                color: '#333333',
+                                border: '2px solid white'
+                            }),
+                            option: (baseStyles, state) => ({
+                                ...baseStyles,
+                                backgroundColor: state.isFocused ? '#007BFF' : '#f0f0f0',
+                                color: state.isFocused ? 'white' : '#333333',
+                                cursor: 'pointer'
+                            }),
+                            menu: (baseStyles) => ({
+                                ...baseStyles,
+                                backgroundColor: 'white'
+                            }),
+                            multiValue: (baseStyles) => ({
+                                ...baseStyles,
+                                backgroundColor: 'rgba(255, 255, 255, 0.9)'
+                            }),
+                            multiValueLabel: (baseStyles) => ({
+                                ...baseStyles,
+                                color: '#333333'
+                            })
+                        }}
                     />
                 </label>
                 <label>
